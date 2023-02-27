@@ -1,6 +1,6 @@
 package com.insy2s.ServiceAdress.service;
 
-import com.insy2s.ServiceAdress.model.Adress;
+import com.insy2s.ServiceAdress.model.Address;
 import com.insy2s.ServiceAdress.repository.AdressRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +12,37 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class AdressServiceImpl implements  IAdressService{
+public class AddressServiceImpl implements  IAddressService{
     @Autowired
    private  AdressRepository adressRepository;
     @Override
-    public Optional<Adress> getAdressById(int id)
+    public Optional<Address> getAddressById(int id)
     {
         return adressRepository.findById(id);
     }
 
     @Override
-    public Adress createAdress(Adress adress) {
+    public Address createAddress(Address adress) {
+
+
         return adressRepository.save(adress);
     }
 
     @Override
-    public Adress updateAdress(Adress adress) {
-        return null;
-    }
+    public Address updateAddress(Address adress) {
+        Optional<Address> result=adressRepository.findById(adress.getId());
+        if(result.isEmpty())
+        {
+            return null;
+        }
+        else{
+            result.get().setCity(adress.getCity());
+            result.get().setStreet(adress.getStreet());
+
+            result.get().setPostCode(adress.getPostCode());
+
+            return result.get();
+    }}
 
     @Override
     public void deleteAddress(int id) {
@@ -38,7 +51,7 @@ public class AdressServiceImpl implements  IAdressService{
     }
 
     @Override
-    public List<Adress> getAllAdress() {
+    public List<Address> getAllAddress() {
         return adressRepository.findAll();
     }
 }

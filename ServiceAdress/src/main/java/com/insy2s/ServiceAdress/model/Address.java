@@ -14,11 +14,13 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Adress {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String city;
+    private String Street;
+    private int postCode;
 
-    private String adresseName;
 
 }
