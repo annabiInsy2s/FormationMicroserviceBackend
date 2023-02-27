@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.insy2s</groupId>
-	<artifactId>ServiceAdress</artifactId>
+	<artifactId>ServiceAddress</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ServiceAdress</name>
 	<description>microservice with service adress</description>
