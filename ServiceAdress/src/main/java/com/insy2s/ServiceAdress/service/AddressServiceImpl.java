@@ -29,8 +29,8 @@ public class AddressServiceImpl implements  IAddressService{
     }
 
     @Override
-    public Address updateAddress(Address adress) {
-        Optional<Address> result=adressRepository.findById(adress.getId());
+    public Address updateAddress(Address adress ,int id) {
+        Optional<Address> result=adressRepository.findById(id);
         if(result.isEmpty())
         {
             return null;

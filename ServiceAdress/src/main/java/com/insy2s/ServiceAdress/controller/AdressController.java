@@ -25,9 +25,24 @@ public class AdressController {
     public List<Address> getAllAddress( )  {
         return addressService.getAllAddress();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Address> getAdresseById(@PathVariable int id){
+        Optional<Address>  adresseGetById=addressService.getAddressById(id);
+        return ResponseEntity.status(201).body(adresseGetById.get());
 
+    }
+    @DeleteMapping("/{id}")
+    public void deleteAdresseById(@PathVariable int id){
+        addressService.deleteAddress(id);
+
+    }
+    @PutMapping ("/{id}")
+    public ResponseEntity<Address> updateAdresse(@RequestBody Address adresse,@PathVariable Integer id){
+        return ResponseEntity.status(200).body( addressService.updateAddress( adresse ,  id));
+
+    }
     @PostMapping("/")
-    public ResponseEntity<Address> createCategory(@RequestBody Address address)
+    public ResponseEntity<Address> createAddress(@RequestBody Address address)
     {
         Optional <Address> adressSerch=addressRepository.findAdressByCity(address.getCity(),address.getStreet(),address.getPostCode());
         if(adressSerch.isEmpty())
