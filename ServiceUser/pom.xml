@@ -35,6 +35,7 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		-->
+		<!--  method synchrone  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
