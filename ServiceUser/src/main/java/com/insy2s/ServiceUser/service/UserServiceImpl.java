@@ -28,9 +28,11 @@ public class UserServiceImpl  implements IUserService{
         ResponseDto responseDto = new ResponseDto();
         User user = userRepository.findById(userId).get();
         UserDto userDto = mapToUser(user);
-        System.out.println(user.getAddressId());
+        System.out.println("guuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+user.getAddressId());
 
-        Address address = this.apiClient.getAdressById(user.getAddressId());
+        Address address = apiClient.getAdressById(user.getAddressId());
+        System.out.println("guuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+address.getCity());
+
         responseDto.setUser(userDto);
         responseDto.setAddress(address);
 

@@ -26,9 +26,9 @@ public class AdressController {
         return addressService.getAllAddress();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAdresseById(@PathVariable int id){
+    public Address getAdresseById(@PathVariable int id){
         Optional<Address>  adresseGetById=addressService.getAddressById(id);
-        return ResponseEntity.status(201).body(adresseGetById.get());
+        return adresseGetById.get();
 
     }
     @DeleteMapping("/{id}")

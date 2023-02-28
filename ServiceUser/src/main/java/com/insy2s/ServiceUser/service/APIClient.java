@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "AddressService", url = "http://localhost:8083/api/address")
 public interface APIClient {
     @GetMapping(value = "/{id}")
-    Address getAdressById(@PathVariable int addressId);
+    Address getAdressById(@PathVariable int id);
 }
