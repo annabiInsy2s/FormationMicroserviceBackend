@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserService {
     ResponseDto getUserById(int id);
-    User createUser(User user);
+    ResponseDto createUser(User user);
     User updateUser(User user ,int id);
     void deleteUser (int id);
     List<User> getAllUser();

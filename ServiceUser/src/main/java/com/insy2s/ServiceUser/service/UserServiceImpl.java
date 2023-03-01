@@ -28,6 +28,9 @@ public class UserServiceImpl  implements IUserService{
         ResponseDto responseDto = new ResponseDto();
         User user = userRepository.findById(userId).get();
         UserDto userDto = mapToUser(user);
+        userDto.setId(user.getId());
+        System.out.println("vhebveiher"+userDto.getId());
+
         Address address = apiClient.getAdressById(user.getAddressId());
         responseDto.setUser(userDto);
         responseDto.setAddress(address);
@@ -47,8 +50,23 @@ public class UserServiceImpl  implements IUserService{
 
 
     @Override
-    public User createUser(User user) {
-            return userRepository.save(user);
+    public ResponseDto createUser(User user) {
+        ResponseDto responseDto = new ResponseDto();
+
+        Address address = apiClient.getAdressById(user.getAddressId());
+
+        responseDto.setAddress(address);
+        if(address==null){
+            return null;
+        }
+       else {
+           User userCreated= userRepository.save(user);
+            UserDto userDto = mapToUser(userCreated);
+
+            responseDto.setUser(userDto);
+        return  responseDto;
+
+       }
     }
 
     @Override
@@ -72,6 +90,7 @@ public class UserServiceImpl  implements IUserService{
 
     @Override
     public List<User> getAllUser() {
+
         return userRepository.findAll();
     }
 }

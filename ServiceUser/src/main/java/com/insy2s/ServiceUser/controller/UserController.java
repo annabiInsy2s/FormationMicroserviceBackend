@@ -1,5 +1,6 @@
 package com.insy2s.ServiceUser.controller;
 
+import com.insy2s.ServiceUser.config.AES256;
 import com.insy2s.ServiceUser.dto.ResponseDto;
 import com.insy2s.ServiceUser.model.User;
 import com.insy2s.ServiceUser.repository.UserRepository;
@@ -7,6 +8,7 @@ import com.insy2s.ServiceUser.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class UserController {
     private final UserRepository userRepository;
     @Autowired
     private final UserServiceImpl userService;
+    @Autowired
     @GetMapping("/")
     public List<User> getAllUser( )  {
         return userService.getAllUser();
@@ -43,12 +46,23 @@ public class UserController {
 
     }
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody User user)
+    public ResponseEntity<ResponseDto> createUser(@RequestBody User user)
     {
-        User userCreated=userService.createUser(user);
+
+        Optional<User> userSerched=userRepository.findUserByEmail(user.getEmail());
+        if(userSerched.isEmpty()){
+            String encryptedString = AES256.encrypt(user.getPassword());
+            user.setPassword(encryptedString);
+            ResponseDto userCreated=userService.createUser(user);
 
 
             return ResponseEntity.status(201).body(userCreated);
+        }
+        else{
+            return ResponseEntity.status(302).body(null);
+
+        }
+
 
 
 
