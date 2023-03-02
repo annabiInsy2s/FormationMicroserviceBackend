@@ -32,5 +32,6 @@ public class User {
     @Size(max = 120)
     private  String password;
     private int addressId;
+    private Erole erole;
 }
 

@@ -2,14 +2,11 @@ package com.insy2s.ServiceUser.service;
 
 import com.insy2s.ServiceUser.dto.Address;
 import com.insy2s.ServiceUser.dto.ResponseDto;
-import com.insy2s.ServiceUser.dto.UserDto;
 import com.insy2s.ServiceUser.model.User;
 import com.insy2s.ServiceUser.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +24,17 @@ public class UserServiceImpl  implements IUserService{
 
         ResponseDto responseDto = new ResponseDto();
         User user = userRepository.findById(userId).get();
-        UserDto userDto = mapToUser(user);
-        userDto.setId(user.getId());
-        System.out.println("vhebveiher"+userDto.getId());
+        ResponseDto userDto = mapToUser(user);
 
         Address address = apiClient.getAdressById(user.getAddressId());
-        responseDto.setUser(userDto);
-        responseDto.setAddress(address);
 
-        return responseDto;
+        userDto.setAddress(address);
+
+        return userDto;
     }
 
-    private UserDto mapToUser(User user){
-        UserDto userDto = new UserDto();
+    private ResponseDto mapToUser(User user){
+        ResponseDto userDto = new ResponseDto();
         userDto.setId(user.getId());
         userDto.setEmail(user.getEmail());
         userDto.setName(user.getName());
@@ -55,16 +50,16 @@ public class UserServiceImpl  implements IUserService{
 
         Address address = apiClient.getAdressById(user.getAddressId());
 
-        responseDto.setAddress(address);
         if(address==null){
             return null;
         }
        else {
            User userCreated= userRepository.save(user);
-            UserDto userDto = mapToUser(userCreated);
 
-            responseDto.setUser(userDto);
-        return  responseDto;
+            ResponseDto userDto = mapToUser(userCreated);
+            userDto.setAddress(address);
+
+        return  userDto;
 
        }
     }
