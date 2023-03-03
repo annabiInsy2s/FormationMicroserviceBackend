@@ -31,3 +31,8 @@ spring:
 #  Server configuration
 server:
   port: 8082
+eureka :
+  instance:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/
