@@ -1,21 +1,16 @@
-package com.insy2s.ServiceUser;
+package com.insy2s.ServiceConfig;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
-@EnableFeignClients
-/*@EnableDiscoveryClient*/
-
-public class ServiceUserApplication {
+@EnableConfigServer
+public class ServiceConfigApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServiceUserApplication.class, args);
+		SpringApplication.run(ServiceConfigApplication.class, args);
 	}
-
-
 
 }

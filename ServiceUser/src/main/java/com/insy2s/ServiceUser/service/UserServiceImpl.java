@@ -36,42 +36,21 @@ public class UserServiceImpl  implements IUserService{
     private ResponseDto mapToUser(User user){
         ResponseDto userDto = new ResponseDto();
         userDto.setId(user.getId());
-        userDto.setEmail(user.getEmail());
-        userDto.setName(user.getName());
-        userDto.setPassword(user.getPassword());
+        userDto.setUsername(user.getUsername());
 
         return userDto;
     }
 
 
-    @Override
-    public ResponseDto createUser(User user) {
-        ResponseDto responseDto = new ResponseDto();
 
-        Address address = apiClient.getAdressById(user.getAddressId());
-
-        if(address==null){
-            return null;
-        }
-       else {
-           User userCreated= userRepository.save(user);
-
-            ResponseDto userDto = mapToUser(userCreated);
-            userDto.setAddress(address);
-
-        return  userDto;
-
-       }
-    }
 
     @Override
     public User updateUser(User user, int id) {
-        Optional<User> userSerched=userRepository.findUserByEmail(user.getEmail());
+        Optional<User> userSerched=userRepository.findByUsername(user.getUsername());
       if(userSerched.isEmpty())
              return null;
       else{
-          userSerched.get().setEmail(user.getEmail());
-          userSerched.get().setName(user.getName());
+          userSerched.get().setUsername(user.getUsername());
           userSerched.get().setPassword(user.getPassword());
     return userRepository.save(userSerched.get());
 }

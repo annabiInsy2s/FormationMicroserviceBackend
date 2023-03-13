@@ -12,10 +12,9 @@ import lombok.Setter;
 public class ResponseDto {
 
     private int id;
-    private  String name;
 
-    private  String email;
 
-    private  String password;
+    private  String username;
+
     private Address address;
 }
